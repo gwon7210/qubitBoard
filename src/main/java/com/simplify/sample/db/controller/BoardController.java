@@ -62,7 +62,7 @@ public class BoardController {
     public String chaneContent(@RequestParam int id, @RequestParam String title, @RequestParam String content, @RequestParam int delpass, HttpServletRequest req, Model model) throws Exception{
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");
-
+        //qrwqrwrqw
         //게시물 id값 조회로 존재여부 확인 후, 없으면 생성 있으면 수정
         // 1. 모든 id 값 db에서 가져온 후 현재 컨텐츠 id와 비교하기
         // 2. 아니면 where id = id 인것을 셀렉트 한 후 결과 값이 있는지 비교 방법
