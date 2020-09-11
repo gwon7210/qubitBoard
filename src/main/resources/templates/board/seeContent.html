@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>게시글 보기</h1>
+    <h1>see the content detail ! </h1>
+    <p><textarea name="title" cols="85" rows="1" th:text="${contentdetail.title}" readonly>      </textarea></p>
+    <p><textarea name="content" cols="85" rows="10" th:text="${contentdetail.content}" readonly>   </textarea></p>
+
+    <input name="id"  th:value="${contentId}" style="display:none">
+
+<div style="float: left">
+        <form action="showList">
+        <input type="submit" value="돌아가기">
+        </form>
+</div>
+
+<div style="float: left">
+<form action="/gotoContent">
+    <input type="submit" value="글 작성">
+</form>
+</div>
+<br>
+<br>
+
+ <table>
+    <tbody>
+    <!-- CONTENTS !-->
+    <tr th:each="comments : ${comments}">
+        <td>
+            <span>--------------------------------</span>
+            <br>
+            <span th:text="작성자"></span>
+            <span>  :</span>
+            <span th:text="${comments.user_id}"></span>
+            <br>
+            <span> 내용:</span>
+            <span th:text="${comments.content}"></span>
+            <br>
+            <span>--------------------------------</span>
+            <br>
+            <br>
+         </td>
+    </tr>
+    </tbody>
+</table>
+
+        <form action="inputComment" method="post">
+        <p1>댓글창</p1>
+        <p><textarea name="commentpaper" cols="85" rows="3" placeholder="댓글을 입력해주세요"></textarea></p>
+            <input name="contentId" type="hidden" th:value="${contentdetail.id}" >
+            <input type="submit" value="작성완료">
+        </form>
+
+
+
+
+
+
+</body>
+</html>
