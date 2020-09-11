@@ -31,7 +31,7 @@
             </td>
 
             <td>
-                <a th:href="@{/seeContent (contentId=${board.id}) }">
+                <a th:href="@{/seeContent (contentId=${board.id}, contentMaker=${board.user_id}) }">
                     <span th:text="${board.title}"></span>
                 </a>
             </td>
@@ -47,6 +47,7 @@
                     <span>글 변경하러 가기</span>
                 </a>
             </td>
+
         </tr>
         </tbody>
     </table>

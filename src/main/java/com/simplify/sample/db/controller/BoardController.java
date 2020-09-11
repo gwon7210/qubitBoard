@@ -35,14 +35,7 @@ public class BoardController {
     public String insertcontent(@RequestParam String title, @RequestParam String content, @RequestParam int delpass, HttpServletRequest req, Model model) throws Exception{
             HttpSession session = req.getSession();
             String user_id = (String)session.getAttribute("userid");
-/*
-            System.out.println("확인용 코드입니다.");
-            System.out.println("=======================================================");
-            System.out.println("title ="+title);
-            System.out.println("title ="+delpass);
-            System.out.println("title ="+user_id);
-            System.out.println("title ="+content);
-            System.out.println("=======================================================");*/
+
             contentVO con = new contentVO(title,delpass,user_id,content);
             testService.insertContent(con);
 
@@ -81,13 +74,6 @@ public class BoardController {
 
         resultCon =testService.getContentDetail(con);
 
-       /* System.out.println("it is for test");
-        System.out.println("============================");
-        System.out.println(resultCon.getTitle());
-        System.out.println(resultCon.getDelpass());
-        System.out.println(resultCon.getContent());
-        System.out.println("============================");*/
-
         model.addAttribute("contentdetail",resultCon);
         model.addAttribute("contentId",contentId);
 
@@ -95,30 +81,27 @@ public class BoardController {
     }
 
     @GetMapping("/seeContent")
-    public String seeContent(@RequestParam String contentId, @ModelAttribute titleVO titleVO, Model model, HttpServletRequest req)throws Exception{
+    public String seeContent(@RequestParam String contentId,@RequestParam String contentMaker, @ModelAttribute titleVO titleVO, Model model, HttpServletRequest req)throws Exception{
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");
 
         contentVO con = new contentVO(Integer.parseInt(contentId));
-        contentVO resultCon = new contentVO();
 
-        resultCon =testService.getContentDetail(con);
+
+        contentVO resultCon =testService.getContentDetail(con);
         resultCon.setId(Integer.parseInt(contentId));
-       /* System.out.println("it is for test");
-        System.out.println("============================");
-        System.out.println(resultCon.getTitle());
+        resultCon.setUser_id(contentMaker);
+        System.out.println("11111111111111111111");
+        System.out.println(contentMaker);
         System.out.println(resultCon.getDelpass());
         System.out.println(resultCon.getContent());
-        System.out.println("============================");*/
-
-
-
+        System.out.println(resultCon.getTitle());
 
         //board_id를 통해서 모든 comment 가져오기
         contentVO contwo = new contentVO(Integer.parseInt(contentId));
         List<commentVO> listComment = testService.findCommentsByBoardId(contwo);
 
-
+        System.out.println(resultCon);
 
 
 
@@ -126,6 +109,8 @@ public class BoardController {
         model.addAttribute("contentdetail",resultCon);
         model.addAttribute("comments",listComment);
         model.addAttribute("contentId",contentId);
+        model.addAttribute("currentUserid",user_id);
+        model.addAttribute("contentUserId",resultCon.getUser_id());
 
         return "board/seeContent";
     }
@@ -134,8 +119,6 @@ public class BoardController {
     public String inputComment(@RequestParam String contentId, @RequestParam String commentpaper, @ModelAttribute titleVO titleVO, Model model, HttpServletRequest req)throws Exception{
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");
-
-
 
         //id 값만 넣은 contentVO 객체 생성
         contentVO con = new contentVO(Integer.parseInt(contentId));
@@ -153,19 +136,21 @@ public class BoardController {
         contentVO contwo = new contentVO(Integer.parseInt(contentId));
         List<commentVO> listComment = testService.findCommentsByBoardId(contwo);
 
-        System.out.println("댓글 데이터가 잘 전달 되었나?");
-        System.out.println(contentId);
-        System.out.println(listComment);
-        System.out.println("===========================");
-
-        for(int i=0;i<listComment.size();i++){
+ /*       for(int i=0;i<listComment.size();i++){
                 System.out.println(listComment.get(i).getUser_id()); }
-
+*/
         //템플릿으로 데이터 보내기
         model.addAttribute("contentdetail",resultCon);
         model.addAttribute("comments",listComment);
         model.addAttribute("contentId",contentId);
 
         return "board/seeContent";
+    }
+
+    @GetMapping("/deleteContent")
+    public String deleteContent()throws Exception{
+        System.out.println("i got it");
+
+        return "board/boardlist";
     }
 }
