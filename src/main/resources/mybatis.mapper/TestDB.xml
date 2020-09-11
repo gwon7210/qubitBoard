@@ -42,6 +42,9 @@
         insert into comment(user_id, board_id, content) value(#{user_id},#{board_id},#{content})
     </insert>
 
+<!--    여기서 데이터를 넣을 때 setter을 사용해서 넣는가 ?-->
+    <!--    commentVO에 user_id, board_id 생성자를 만들었을 때 오류가 나는 이유?-->
+
     <select id="findCommentsByBoardId" parameterType="com.simplify.sample.db.dto.contentVO" resultType="com.simplify.sample.db.dto.commentVO">
         select user_id, content from comment where board_id = (#{id})
     </select>

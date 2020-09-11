@@ -1,9 +1,6 @@
 package com.simplify.sample.db.controller;
 
-import com.simplify.sample.db.dto.allcontentVO;
-import com.simplify.sample.db.dto.commentVO;
-import com.simplify.sample.db.dto.contentVO;
-import com.simplify.sample.db.dto.titleVO;
+import com.simplify.sample.db.dto.*;
 import com.simplify.sample.db.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,7 +59,6 @@ public class BoardController {
     public String chaneContent(@RequestParam int id, @RequestParam String title, @RequestParam String content, @RequestParam int delpass, HttpServletRequest req, Model model) throws Exception{
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");
-        //qrwqrwrqw
         //게시물 id값 조회로 존재여부 확인 후, 없으면 생성 있으면 수정
         // 1. 모든 id 값 db에서 가져온 후 현재 컨텐츠 id와 비교하기
         // 2. 아니면 where id = id 인것을 셀렉트 한 후 결과 값이 있는지 비교 방법
@@ -99,7 +95,9 @@ public class BoardController {
     }
 
     @GetMapping("/seeContent")
-    public String seeContent(@RequestParam String contentId, @ModelAttribute titleVO titleVO, Model model)throws Exception{
+    public String seeContent(@RequestParam String contentId, @ModelAttribute titleVO titleVO, Model model, HttpServletRequest req)throws Exception{
+        HttpSession session = req.getSession();
+        String user_id = (String)session.getAttribute("userid");
 
         contentVO con = new contentVO(Integer.parseInt(contentId));
         contentVO resultCon = new contentVO();
@@ -113,7 +111,20 @@ public class BoardController {
         System.out.println(resultCon.getContent());
         System.out.println("============================");*/
 
+
+
+
+        //board_id를 통해서 모든 comment 가져오기
+        contentVO contwo = new contentVO(Integer.parseInt(contentId));
+        List<commentVO> listComment = testService.findCommentsByBoardId(contwo);
+
+
+
+
+
+
         model.addAttribute("contentdetail",resultCon);
+        model.addAttribute("comments",listComment);
         model.addAttribute("contentId",contentId);
 
         return "board/seeContent";
