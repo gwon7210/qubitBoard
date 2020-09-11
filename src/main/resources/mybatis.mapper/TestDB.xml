@@ -49,4 +49,8 @@
         select user_id, content from comment where board_id = (#{id})
     </select>
 
+    <delete id="deleteContentById" parameterType="com.simplify.sample.db.dto.contentVO">
+        DELETE from board WHERE id = (#{id})
+    </delete>
+
 </mapper>

@@ -87,24 +87,15 @@ public class BoardController {
 
         contentVO con = new contentVO(Integer.parseInt(contentId));
 
-
         contentVO resultCon =testService.getContentDetail(con);
         resultCon.setId(Integer.parseInt(contentId));
         resultCon.setUser_id(contentMaker);
-        System.out.println("11111111111111111111");
-        System.out.println(contentMaker);
-        System.out.println(resultCon.getDelpass());
-        System.out.println(resultCon.getContent());
-        System.out.println(resultCon.getTitle());
 
         //board_id를 통해서 모든 comment 가져오기
         contentVO contwo = new contentVO(Integer.parseInt(contentId));
         List<commentVO> listComment = testService.findCommentsByBoardId(contwo);
 
         System.out.println(resultCon);
-
-
-
 
         model.addAttribute("contentdetail",resultCon);
         model.addAttribute("comments",listComment);
@@ -148,9 +139,11 @@ public class BoardController {
     }
 
     @GetMapping("/deleteContent")
-    public String deleteContent()throws Exception{
-        System.out.println("i got it");
-
+    public String deleteContent(@RequestParam int contentId)throws Exception{
+        System.out.println("컨텐츠 아이디는 ?");
+        System.out.println(contentId);
+        contentVO con = new contentVO(contentId);
+        testService.deleteContentById(con);
         return "board/boardlist";
     }
 }
