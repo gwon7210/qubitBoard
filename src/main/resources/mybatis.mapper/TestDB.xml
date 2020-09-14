@@ -42,15 +42,18 @@
         insert into comment(user_id, board_id, content) value(#{user_id},#{board_id},#{content})
     </insert>
 
-<!--    여기서 데이터를 넣을 때 setter을 사용해서 넣는가 ?-->
-    <!--    commentVO에 user_id, board_id 생성자를 만들었을 때 오류가 나는 이유?-->
-
+     <!--    commentVO에 user_id, board_id 생성자를 만들었을 때 오류가 나는 이유?-->
     <select id="findCommentsByBoardId" parameterType="com.simplify.sample.db.dto.contentVO" resultType="com.simplify.sample.db.dto.commentVO">
         select user_id, content from comment where board_id = (#{id})
     </select>
 
-    <delete id="deleteContentById" parameterType="com.simplify.sample.db.dto.contentVO">
+    <delete id="deleteContentById" parameterType="com.simplify.sample.db.dto.deletecontentVO">
         DELETE from board WHERE id = (#{id})
     </delete>
+
+<!--    ???resultType이 배열이어도 단일 결과 값과 같이 commentVO를 사용하면 되는가???-->
+    <select id="searchContentByWriter" parameterType="String" resultType="com.simplify.sample.db.dto.commentVO">
+        select *from board where user_id = ({#user_id})
+    </select>
 
 </mapper>

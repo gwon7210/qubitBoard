@@ -1,9 +1,10 @@
 package com.simplify.sample.db.dto;
 
-import java.sql.Timestamp;
+ import java.sql.Timestamp;
 import java.util.Date;
 
 public class contentVO {
+
     private String title;
     private String content;
     private String user_id;

@@ -58,7 +58,12 @@ public class TestService {
         return testMapper.findCommentsByBoardId(con);
     }
 
-    public void deleteContentById(contentVO con) throws Exception {
+    public void deleteContentById(deletecontentVO con) throws Exception {
         testMapper.deleteContentById(con);
     }
+
+    public List<contentVO> searchContentByWriter(String id) throws Exception {
+        return testMapper.searchContentByWriter(id);
+    }
+
 }

@@ -17,5 +17,6 @@ public interface TestMapper {
     void updateContent(contentVO con) throws Exception;
     void insertCommnet(commentVO con) throws Exception;
     List<commentVO> findCommentsByBoardId(contentVO con) throws Exception;
-    void deleteContentById(contentVO con) throws Exception;
+    void deleteContentById(deletecontentVO con) throws Exception;
+    List<contentVO> searchContentByWriter(String id) throws Exception;
 }

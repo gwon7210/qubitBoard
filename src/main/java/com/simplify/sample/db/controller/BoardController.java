@@ -142,8 +142,33 @@ public class BoardController {
     public String deleteContent(@RequestParam int contentId)throws Exception{
         System.out.println("컨텐츠 아이디는 ?");
         System.out.println(contentId);
-        contentVO con = new contentVO(contentId);
+        deletecontentVO con = new deletecontentVO(contentId);
         testService.deleteContentById(con);
+        return "login/logining.html";
+    }
+
+
+    //작성자로 content 검색하기
+    @GetMapping("/searchContentByWriter")
+    public String searchContentByWriter(@RequestParam String user_id, Model model) throws Exception{
+
+        contentVO con = new contentVO();
+
+        //contentVO객체에 작성자 id값으로 검색한 결과 리스트 넣기
+        List<contentVO> contentVOList =  testService.searchContentByWriter(user_id);
+
+        model.addAttribute("contentVOList",contentVOList);
         return "board/boardlist";
     }
+
+
+    //단어로 content 검색하기
+    @GetMapping("/searchContentByContentWord")
+    public String searchContentByContentWord(@RequestParam String word) throws Exception{
+
+
+        return "board/boardlist";
+    }
+
+
 }
