@@ -1,7 +1,13 @@
 package com.simplify.sample.db.dto;
 
+import javax.validation.constraints.NotBlank;
+
 public class memberVO {
+
+
     private String id;
+
+
     private String pass;
 
     public memberVO(String id, String pass) {

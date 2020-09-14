@@ -22,6 +22,7 @@ public class BoardController {
         return "board/makecontent";
     }
 
+    //list 넣기
     @GetMapping("/showList")
     public String showList(HttpServletRequest req, Model model) throws Exception{
         HttpSession session = req.getSession();
@@ -31,6 +32,7 @@ public class BoardController {
         return "board/boardlist";
     }
 
+    //content 넣기
     @PostMapping("/insertContent")
     public String insertcontent(@RequestParam String title, @RequestParam String content, @RequestParam int delpass, HttpServletRequest req, Model model) throws Exception{
             HttpSession session = req.getSession();
@@ -48,7 +50,8 @@ public class BoardController {
              return "board/boardlist";
     }
 
-    @PostMapping("/chaneContent")
+    //content 수정
+    @PatchMapping("/chaneContent")
     public String chaneContent(@RequestParam int id, @RequestParam String title, @RequestParam String content, @RequestParam int delpass, HttpServletRequest req, Model model) throws Exception{
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");

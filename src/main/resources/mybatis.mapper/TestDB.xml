@@ -6,8 +6,8 @@
         SELECT * FROM test
     </select>
 
-    <select id="checkUserInfo" parameterType="com.simplify.sample.db.dto.memberVO" resultType="com.simplify.sample.db.dto.memberVO">
-        select * from user where id = (#{id}) and pass=(#{pass})
+    <select id="checkUserInfo" parameterType="com.simplify.sample.db.dto.memberVO" resultType="int">
+        select count(*) from user where id = (#{id}) and pass=(#{pass})
     </select>
 
     <insert id="insertMainList" parameterType="com.simplify.sample.db.dto.memberVO">

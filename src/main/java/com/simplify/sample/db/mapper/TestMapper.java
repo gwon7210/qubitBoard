@@ -8,7 +8,7 @@ import java.util.List;
 public interface TestMapper {
     public List<Test> getAll() throws Exception;
     void insertMainList(memberVO map) throws Exception;
-    memberVO checkUserInfo(memberVO map) throws Exception;
+    int checkUserInfo(memberVO map) throws Exception;
     void insertContent(contentVO con) throws Exception;
     List<contentVO> getAllContent() throws Exception;
     List<allcontentVO> getContent() throws Exception;
