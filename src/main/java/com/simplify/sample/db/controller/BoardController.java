@@ -135,8 +135,6 @@ public class BoardController {
         return "board/seeContent";
     }
 
-
-
     //작성자로 content 검색하기
     @GetMapping("/searchContentByWriter")
     public String searchContentByWriter(@RequestParam String user_id, Model model) throws Exception{
@@ -153,9 +151,9 @@ public class BoardController {
     //단어로 content 검색하기
     @GetMapping("/searchContentByContentWord")
     public String searchContentByContentWord(@RequestParam String word, Model model) throws Exception{
-        contentVO con = new contentVO();
-        System.out.println(word);
+
         List<contentVO> conList = testService.searchContentByContentWord(word);
+        System.out.println(conList);
 
         System.out.println("검색한 결과가 잘 나왔나 ?");
            for(int i=0;i<conList.size();i++){

@@ -56,7 +56,7 @@
         select *from board where user_id = ({#user_id})
     </select>
 
-    <select id="searchContentByContentWord" parameterType="String" resultType="com.simplify.sample.db.dto.commentVO">
-        select * from board where content like %({#content_word})%
+    <select id="searchContentByContentWord" parameterType="String" resultType="com.simplify.sample.db.dto.contentVO">
+        select * from board where content like CONCAT('%',#{word},'%')
     </select>
 </mapper>

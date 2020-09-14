@@ -17,14 +17,17 @@
             <th class="three wide">작성일</th>
         </tr>
         </thead>
+
+        <form action="/searchContentByContentWord">
+            <input type="text" name="word">
+            <input type="submit" value="검색">
+        </form>
+
+        <br>
+
         <form action="/gotoContent">
             <input type="submit" value="글 작성">
         </form>
-
-         <form action="/searchContentByContentWord">
-            <input type="text" value="글 검색">
-             <input type="submit" value="제출">
-         </form>
 
          <tbody>
         <!-- CONTENTS !-->
