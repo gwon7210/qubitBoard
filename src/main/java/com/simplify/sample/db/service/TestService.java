@@ -58,7 +58,7 @@ public class TestService {
         return testMapper.findCommentsByBoardId(con);
     }
 
-    public void deleteContentById(deletecontentVO con) throws Exception {
+    public void deleteContentById(int con) throws Exception {
         testMapper.deleteContentById(con);
     }
 
@@ -66,4 +66,7 @@ public class TestService {
         return testMapper.searchContentByWriter(id);
     }
 
+    public List<contentVO> searchContentByContentWord(String word) throws Exception {
+        return testMapper.searchContentByContentWord(word);
+    }
 }

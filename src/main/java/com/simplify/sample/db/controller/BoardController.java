@@ -43,9 +43,6 @@ public class BoardController {
 
             List<allcontentVO> boardList = testService.getContent();
 
-           /* for(int i=0;i<boardList.size();i++){
-                System.out.println(boardList.get(i));
-            }*/
              model.addAttribute("boardList", boardList);
              return "board/boardlist";
     }
@@ -55,10 +52,6 @@ public class BoardController {
     public String chaneContent(@RequestParam int id, @RequestParam String title, @RequestParam String content, @RequestParam int delpass, HttpServletRequest req, Model model) throws Exception{
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");
-        //게시물 id값 조회로 존재여부 확인 후, 없으면 생성 있으면 수정
-        // 1. 모든 id 값 db에서 가져온 후 현재 컨텐츠 id와 비교하기
-        // 2. 아니면 where id = id 인것을 셀렉트 한 후 결과 값이 있는지 비교 방법
-        // 1. 2 번 해보고 시간비교 해보기
 
         contentVO con = new contentVO(title, delpass,content,id);
         testService.updateContent(con);
@@ -133,6 +126,7 @@ public class BoardController {
  /*       for(int i=0;i<listComment.size();i++){
                 System.out.println(listComment.get(i).getUser_id()); }
 */
+
         //템플릿으로 데이터 보내기
         model.addAttribute("contentdetail",resultCon);
         model.addAttribute("comments",listComment);
@@ -141,14 +135,6 @@ public class BoardController {
         return "board/seeContent";
     }
 
-    @GetMapping("/deleteContent")
-    public String deleteContent(@RequestParam int contentId)throws Exception{
-        System.out.println("컨텐츠 아이디는 ?");
-        System.out.println(contentId);
-        deletecontentVO con = new deletecontentVO(contentId);
-        testService.deleteContentById(con);
-        return "login/logining.html";
-    }
 
 
     //작성자로 content 검색하기
@@ -164,14 +150,43 @@ public class BoardController {
         return "board/boardlist";
     }
 
-
     //단어로 content 검색하기
     @GetMapping("/searchContentByContentWord")
-    public String searchContentByContentWord(@RequestParam String word) throws Exception{
+    public String searchContentByContentWord(@RequestParam String word, Model model) throws Exception{
+        contentVO con = new contentVO();
+        System.out.println(word);
+        List<contentVO> conList = testService.searchContentByContentWord(word);
 
+        System.out.println("검색한 결과가 잘 나왔나 ?");
+           for(int i=0;i<conList.size();i++){
+                System.out.println(conList.get(i).getUser_id()); }
 
+        List<allcontentVO> boardList = testService.getContent();
+        model.addAttribute("boardList", boardList);
         return "board/boardlist";
     }
 
+    //content 삭제하기
+    //??? DeleteMapping 으로 받으려 시도했지만 템플렛에서 method가 post 와 get 둘 밖에 없음
+    @PostMapping("deleteContent")
+    public String deleteContent(@RequestParam int contentId, @RequestParam String contentUserId, HttpServletRequest req, Model model) throws Exception {
 
+        //세션을 통해서 접속중인 user_id 생성
+        HttpSession session = req.getSession();
+        String user_id = (String)session.getAttribute("userid");
+
+        //프론트에서 개발자 모드로 데이터를 오염시킬 수 있다고 하셨는데, 템플릿에서 contentUserId를 안전하게 받는 방법은 ?
+        if(contentUserId.equals(user_id)){
+            testService.deleteContentById(contentId);
+        }else{
+            //템플릿에서 1차 검증을 끝낸 후 2차 검증
+            System.out.println(contentUserId);
+            System.out.println(user_id);
+            System.out.println("다른 사용자 입니다.");
+        }
+
+        List<allcontentVO> boardList = testService.getContent();
+        model.addAttribute("boardList", boardList);
+        return "board/boardlist";
+    }
 }

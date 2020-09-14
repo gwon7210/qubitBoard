@@ -47,7 +47,7 @@
         select user_id, content from comment where board_id = (#{id})
     </select>
 
-    <delete id="deleteContentById" parameterType="com.simplify.sample.db.dto.deletecontentVO">
+    <delete id="deleteContentById" parameterType="int">
         DELETE from board WHERE id = (#{id})
     </delete>
 
@@ -56,4 +56,7 @@
         select *from board where user_id = ({#user_id})
     </select>
 
+    <select id="searchContentByContentWord" parameterType="String" resultType="com.simplify.sample.db.dto.commentVO">
+        select * from board where content like %({#content_word})%
+    </select>
 </mapper>

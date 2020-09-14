@@ -18,7 +18,6 @@ public class MemberValidator implements Validator {
 
 //		(이름 유효성 체크)
 //        isBlank는 공백을 true로 판단하고 Empty는 공백도 false로 판단한다.
-
         String mId = member.getId();
         if(mId == null || mId.trim().isEmpty()) {
             System.out.println("입력하신 id가 공백입니다.");
