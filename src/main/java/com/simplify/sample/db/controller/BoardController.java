@@ -73,12 +73,14 @@ public class BoardController {
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");
 
+        //contentid를 통해서 content의 정보 가져오
         contentVO con = new contentVO(Integer.parseInt(contentIdB));
         contentVO resultCon = new contentVO();
 
         resultCon =testService.getContentDetail(con);
 
-        //goToChange
+
+        //contentId와 sessionId를 비교하여 수정 여부 결정
         if(resultCon.getUser_id().equals(user_id)){
             model.addAttribute("contentdetail",resultCon);
             model.addAttribute("contentId",contentIdB);
@@ -88,7 +90,8 @@ public class BoardController {
         model.addAttribute("contentdetail",resultCon);
         model.addAttribute("contentId",contentIdB);
 
-        return "board/seeContentToChange";
+        System.out.println("다른 사용자 입니다.");
+        return "board/seeContent";
     }
 
     @GetMapping("/seeContent")
