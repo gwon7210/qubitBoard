@@ -51,17 +51,18 @@
         DELETE from board WHERE id = (#{id})
     </delete>
 
-<!--    ???resultType이 배열이어도 단일 결과 값과 같이 commentVO를 사용하면 되는가???-->
-    <select id="searchContentByWriter" parameterType="String" resultType="com.simplify.sample.db.dto.commentVO">
-        select *from board where user_id = ({#user_id})
-    </select>
-
     <select id="searchContentByContentWord" parameterType="String" resultType="com.simplify.sample.db.dto.contentVO">
         select * from board where content like CONCAT('%',#{word},'%') or title like CONCAT('%',#{word},'%')
     </select>
 
-<!--    <select id="searchContentByContentWordTestVer" parameterType="contentVO" resultType="com.simplify.sample.db.dto.contentVO">-->
-<!--        select * from board where content like CONCAT('%',#{content},'%') or title like CONCAT('%',#{title},'%')-->
+<!--    ???db에는 varchar로 저장되어 있는데, resultType로 Stirng 을 지정해도 되는가? 내가 맞추는 건가가 db가 맞추는 건가 ?-->
+<!--    ???이 코드와 아래 코드의 차이점은? 오류 발생-->
+<!--    <select id="compareWriterAndSessionUser" parameterType="int" resultType="String">-->
+<!--        select user_id from board where id = ({#sessionId})-->
 <!--    </select>-->
+
+    <select id="compareWriterAndSessionUser" resultType="String" parameterType="int">
+        SELECT user_id FROM board  WHERE id = (#{id})
+    </select>
 
 </mapper>

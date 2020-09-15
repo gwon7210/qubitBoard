@@ -18,10 +18,8 @@ public interface TestMapper {
     void insertCommnet(commentVO con) throws Exception;
     List<commentVO> findCommentsByBoardId(contentVO con) throws Exception;
     void deleteContentById(int con) throws Exception;
-    List<contentVO> searchContentByWriter(String id) throws Exception;
     List<contentVO> searchContentByContentWord(String word) throws Exception;
-    List<contentVO> searchContentByContentWordTestVer(contentVO con) throws Exception;
-
+    String compareWriterAndSessionUser(int sessionId) throws Exception;
 
 
 }

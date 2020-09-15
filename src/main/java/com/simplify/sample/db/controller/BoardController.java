@@ -54,6 +54,9 @@ public class BoardController {
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");
 
+
+
+
         contentVO con = new contentVO(title, delpass,content,id);
         testService.updateContent(con);
         List<allcontentVO> boardList = testService.getContent();
@@ -136,25 +139,9 @@ public class BoardController {
         return "board/seeContent";
     }
 
-    //작성자로 content 검색하기
-    @GetMapping("/searchContentByWriter")
-    public String searchContentByWriter(@RequestParam String user_id, Model model) throws Exception{
-
-        contentVO con = new contentVO();
-
-        //contentVO객체에 작성자 id값으로 검색한 결과 리스트 넣기
-        List<contentVO> contentVOList =  testService.searchContentByWriter(user_id);
-
-        model.addAttribute("contentVOList",contentVOList);
-        return "board/boardlist";
-    }
-
-    //단어로 content 검색하기
+    //content, title을 통해 content 검색하기
     @GetMapping("/searchContentByContentWord")
     public String searchContentByContentWord(@RequestParam String word, Model model) throws Exception{
-
-
-
 
         List<contentVO> conList = testService.searchContentByContentWord(word);
         System.out.println(conList);
@@ -184,13 +171,19 @@ public class BoardController {
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");
 
-        //contentUserId를 받는 것은 해킹의 위험이 있다. contentId를 통해서 조회 하는 방법 사용하기
-        if(contentUserId.equals(user_id)){
+        int id = contentId;
+        System.out.println(id);
+        String writerId = testService.compareWriterAndSessionUser(id);
+
+        // ==와 equals 정확히 알
+        //contentUserId를 받는 것은 해킹의 위험이 있다. contentId를 통해서 조회 하는 방법 사용하기기
+        if(writerId==user_id){
             testService.deleteContentById(contentId);
         }else{
             //템플릿에서 1차 검증을 끝낸 후 2차 검증
             System.out.println(contentUserId);
-            System.out.println(user_id);
+            System.out.println("user_id :" + user_id);
+            System.out.println("writerId :" + writerId);
             System.out.println("다른 사용자 입니다.");
         }
 

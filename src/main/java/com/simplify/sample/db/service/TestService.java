@@ -62,16 +62,12 @@ public class TestService {
         testMapper.deleteContentById(con);
     }
 
-    public List<contentVO> searchContentByWriter(String id) throws Exception {
-        return testMapper.searchContentByWriter(id);
-    }
-
     public List<contentVO> searchContentByContentWord(String word) throws Exception {
         return testMapper.searchContentByContentWord(word);
     }
 
-    public List<contentVO> searchContentByContentWordTestVer(contentVO con) throws Exception {
-        return testMapper.searchContentByContentWordTestVer(con);
+    public String compareWriterAndSessionUser(int sessionId) throws Exception{
+        return testMapper.compareWriterAndSessionUser(sessionId);
     }
 
 }
