@@ -2,6 +2,7 @@ package com.simplify.sample.db.controller;
 
 import com.simplify.sample.db.dto.*;
 import com.simplify.sample.db.service.TestService;
+import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -65,17 +66,27 @@ public class BoardController {
     }
 
     @GetMapping("/seeDetailContent")
-    public String seeDetailContent(@RequestParam String contentId, @ModelAttribute titleVO titleVO, Model model)throws Exception{
+    public String seeDetailContent(@RequestParam String contentIdB, @ModelAttribute titleVO titleVO, Model model,HttpServletRequest req)throws Exception{
         /*modelattribute 개념 확인하기
         System.out.println(titleVO.getid());*/
 
-        contentVO con = new contentVO(Integer.parseInt(contentId));
+        HttpSession session = req.getSession();
+        String user_id = (String)session.getAttribute("userid");
+
+        contentVO con = new contentVO(Integer.parseInt(contentIdB));
         contentVO resultCon = new contentVO();
 
         resultCon =testService.getContentDetail(con);
 
+        //goToChange
+        if(resultCon.getUser_id().equals(user_id)){
+            model.addAttribute("contentdetail",resultCon);
+            model.addAttribute("contentId",contentIdB);
+            return "board/seeContentToChange";
+        }
+
         model.addAttribute("contentdetail",resultCon);
-        model.addAttribute("contentId",contentId);
+        model.addAttribute("contentId",contentIdB);
 
         return "board/seeContentToChange";
     }

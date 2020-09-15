@@ -27,7 +27,7 @@
      </select>
 
     <select id="getContentDetail" resultType="com.simplify.sample.db.dto.contentVO" parameterType="com.simplify.sample.db.dto.contentVO">
-        SELECT title, content, delpass FROM board  WHERE id = (#{id})
+        SELECT title, content, delpass, user_id FROM board  WHERE id = (#{id})
     </select>
 
     <select id="findContentById" resultType="com.simplify.sample.db.dto.contentVO">

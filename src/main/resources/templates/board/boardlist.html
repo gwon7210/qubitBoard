@@ -49,6 +49,13 @@
             <td>
                 <span th:text="${board.writetime}"></span>
             </td>
+
+            <td>
+                <a th:href="@{/seeDetailContent (contentId=${board.id}) }">
+                    <span>글 변경하러 가기</span>
+                </a>
+            </td>
+
         </tr>
         </tbody>
     </table>
