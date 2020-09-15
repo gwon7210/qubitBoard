@@ -66,8 +66,10 @@ public class TestService {
         return testMapper.searchContentByContentWord(word);
     }
 
-    public String compareWriterAndSessionUser(int sessionId) throws Exception{
-        return testMapper.compareWriterAndSessionUser(sessionId);
+//    public String compareWriterAndSessionUser(int sessionId) throws Exception{
+//        return testMapper.compareWriterAndSessionUser(sessionId);
+//    }
+    public contentVO compareWriterAndSessionUser(int id) throws Exception{
+        return testMapper.compareWriterAndSessionUser(id);
     }
-
 }

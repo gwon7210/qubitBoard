@@ -165,25 +165,34 @@ public class BoardController {
     //content 삭제하기
     //??? DeleteMapping 으로 받으려 시도했지만 템플렛에서 method가 post 와 get 둘 밖에 없음
     @PostMapping("deleteContent")
-    public String deleteContent(@RequestParam int contentId, @RequestParam String contentUserId, HttpServletRequest req, Model model) throws Exception {
+    public String deleteContent(@RequestParam int contentId, @RequestParam String contentUserId,@RequestParam int dlps, HttpServletRequest req, Model model) throws Exception {
 
         //세션을 통해서 접속중인 user_id 생성
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");
 
         int id = contentId;
-        System.out.println(id);
-        String writerId = testService.compareWriterAndSessionUser(id);
 
-        // ==와 equals 정확히 알
+
+
+        contentVO delpassAnduserId  = testService.compareWriterAndSessionUser(id);
+
+        //받아온 contentId를 통해서 delpass 가져오기
+        //사용자가 입력한 delpass와 비교
+        //맞으면
+
+        System.out.println(delpassAnduserId.getUser_id());
+        System.out.println(delpassAnduserId.getDelpass());
+
+        // ==와 equals 정확히 알기
         //contentUserId를 받는 것은 해킹의 위험이 있다. contentId를 통해서 조회 하는 방법 사용하기기
-        if(writerId==user_id){
+        if(delpassAnduserId.getUser_id().equals(user_id)&& delpassAnduserId.getDelpass()==dlps ){
             testService.deleteContentById(contentId);
         }else{
             //템플릿에서 1차 검증을 끝낸 후 2차 검증
             System.out.println(contentUserId);
             System.out.println("user_id :" + user_id);
-            System.out.println("writerId :" + writerId);
+            System.out.println("writerId :" + delpassAnduserId.getUser_id());
             System.out.println("다른 사용자 입니다.");
         }
 

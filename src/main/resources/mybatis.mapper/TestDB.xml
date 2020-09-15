@@ -61,8 +61,11 @@
 <!--        select user_id from board where id = ({#sessionId})-->
 <!--    </select>-->
 
-    <select id="compareWriterAndSessionUser" resultType="String" parameterType="int">
-        SELECT user_id FROM board  WHERE id = (#{id})
-    </select>
+<!--    <select id="compareWriterAndSessionUser" resultType="String" parameterType="int">-->
+<!--        SELECT user_id FROM board  WHERE id = (#{id})-->
+<!--    </select>-->
 
+    <select id="compareWriterAndSessionUser" resultType="com.simplify.sample.db.dto.contentVO" parameterType="int">
+        SELECT user_id, delpass FROM board  WHERE id = (#{id})
+    </select>
 </mapper>

@@ -48,6 +48,11 @@ public class contentVO {
         this.id = id;
     }
 
+    public contentVO(String user_id, int delpass) {
+        this.user_id = user_id;
+        this.delpass = delpass;
+    }
+
     public contentVO(int id) {
         this.id = id;
     }
