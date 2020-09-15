@@ -57,6 +57,11 @@
     </select>
 
     <select id="searchContentByContentWord" parameterType="String" resultType="com.simplify.sample.db.dto.contentVO">
-        select * from board where content like CONCAT('%',#{word},'%')
+        select * from board where content like CONCAT('%',#{word},'%') or title like CONCAT('%',#{word},'%')
     </select>
+
+<!--    <select id="searchContentByContentWordTestVer" parameterType="contentVO" resultType="com.simplify.sample.db.dto.contentVO">-->
+<!--        select * from board where content like CONCAT('%',#{content},'%') or title like CONCAT('%',#{title},'%')-->
+<!--    </select>-->
+
 </mapper>

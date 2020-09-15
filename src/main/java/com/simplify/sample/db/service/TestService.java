@@ -69,4 +69,9 @@ public class TestService {
     public List<contentVO> searchContentByContentWord(String word) throws Exception {
         return testMapper.searchContentByContentWord(word);
     }
+
+    public List<contentVO> searchContentByContentWordTestVer(contentVO con) throws Exception {
+        return testMapper.searchContentByContentWordTestVer(con);
+    }
+
 }

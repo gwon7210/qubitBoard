@@ -20,5 +20,8 @@ public interface TestMapper {
     void deleteContentById(int con) throws Exception;
     List<contentVO> searchContentByWriter(String id) throws Exception;
     List<contentVO> searchContentByContentWord(String word) throws Exception;
+    List<contentVO> searchContentByContentWordTestVer(contentVO con) throws Exception;
+
+
 
 }

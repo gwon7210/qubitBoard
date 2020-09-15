@@ -48,8 +48,9 @@ public class BoardController {
     }
 
     //content 수정
-    @PatchMapping("/chaneContent")
-    public String chaneContent(@RequestParam int id, @RequestParam String title, @RequestParam String content, @RequestParam int delpass, HttpServletRequest req, Model model) throws Exception{
+    //???수정 api로 바꾸는 법???
+    @PostMapping("/changeContent")
+    public String changeContent(@RequestParam int id, @RequestParam String title, @RequestParam String content, @RequestParam int delpass, HttpServletRequest req, Model model) throws Exception{
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");
 
@@ -152,15 +153,25 @@ public class BoardController {
     @GetMapping("/searchContentByContentWord")
     public String searchContentByContentWord(@RequestParam String word, Model model) throws Exception{
 
+
+
+
         List<contentVO> conList = testService.searchContentByContentWord(word);
         System.out.println(conList);
 
-        System.out.println("검색한 결과가 잘 나왔나 ?");
-           for(int i=0;i<conList.size();i++){
+            for(int i=0;i<conList.size();i++){
                 System.out.println(conList.get(i).getUser_id()); }
 
-        List<allcontentVO> boardList = testService.getContent();
-        model.addAttribute("boardList", boardList);
+        System.out.println("검색한 결과가 잘 나왔나 ?");
+        for(int i=0;i<conList.size();i++){
+            System.out.println(conList.get(i).getId());
+            System.out.println(conList.get(i).getTitle());
+            System.out.println(conList.get(i).getContent());
+            System.out.println(conList.get(i).getDelpass());
+            System.out.println(conList.get(i).getUser_id());
+        }
+
+        model.addAttribute("boardList", conList);
         return "board/boardlist";
     }
 
@@ -173,7 +184,7 @@ public class BoardController {
         HttpSession session = req.getSession();
         String user_id = (String)session.getAttribute("userid");
 
-        //프론트에서 개발자 모드로 데이터를 오염시킬 수 있다고 하셨는데, 템플릿에서 contentUserId를 안전하게 받는 방법은 ?
+        //contentUserId를 받는 것은 해킹의 위험이 있다. contentId를 통해서 조회 하는 방법 사용하기
         if(contentUserId.equals(user_id)){
             testService.deleteContentById(contentId);
         }else{

@@ -8,7 +8,7 @@
 <body>
 <h1>게시판 수정하기</h1>
 
-<form action="chaneContent" method="post">
+<form action="changeContent" method="post">
      <p><textarea name="title" cols="50" rows="1" th:text="${contentdetail.title}">  </textarea></p>
     <p><textarea name="content" cols="50" rows="10" th:text="${contentdetail.content}">   </textarea></p>
     <input name="delpass" type="text" th:value="${contentdetail.delpass}">
