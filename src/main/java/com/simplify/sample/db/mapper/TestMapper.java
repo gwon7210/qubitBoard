@@ -20,7 +20,6 @@ public interface TestMapper {
     void deleteContentById(int con) throws Exception;
     List<contentVO> searchContentByContentWord(String word) throws Exception;
 //    String compareWriterAndSessionUser(int sessionId) throws Exception;
-
      contentVO compareWriterAndSessionUser(int sessionId) throws Exception;
 
 
