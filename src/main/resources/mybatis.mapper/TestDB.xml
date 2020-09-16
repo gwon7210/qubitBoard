@@ -6,19 +6,19 @@
         SELECT * FROM test
     </select>
 
-    <select id="checkUserInfo" parameterType="com.simplify.sample.db.dto.memberVO" resultType="int">
+    <select id="checkUserInfo" parameterType="memberVO" resultType="int">
         select count(*) from user where id = (#{id}) and pass=(#{pass})
     </select>
 
-    <insert id="insertMainList" parameterType="com.simplify.sample.db.dto.memberVO">
+    <insert id="insertMainList" parameterType="memberVO">
         insert into user (id,pass) values (#{id}, #{pass})
     </insert>
 
-     <insert id="insertContent" parameterType="com.simplify.sample.db.dto.contentVO">
+     <insert id="insertContent" parameterType="contentVO">
         insert into board (title, content, user_id,delpass) value (#{title},#{content},#{user_id},#{delpass})
     </insert>
 
-    <select id="getAllContent" resultType="com.simplify.sample.db.dto.contentVO">
+    <select id="getAllContent" resultType="contentVO">
         SELECT id, title, content, writetime FROM board
      </select>
 
@@ -26,24 +26,24 @@
         SELECT id, title, content, delpass, user_id FROM board
      </select>
 
-    <select id="getContentDetail" resultType="com.simplify.sample.db.dto.contentVO" parameterType="com.simplify.sample.db.dto.contentVO">
+    <select id="getContentDetail" resultType="contentVO" parameterType="contentVO">
         SELECT title, content, delpass, user_id FROM board  WHERE id = (#{id})
     </select>
 
-    <select id="findContentById" resultType="com.simplify.sample.db.dto.contentVO">
+    <select id="findContentById" resultType="contentVO">
         SELECT id FROM board
     </select>
 
-    <update id="updateContent" parameterType="com.simplify.sample.db.dto.contentVO">
+    <update id="updateContent" parameterType="contentVO">
         UPDATE board SET title = (#{title}), delpass= (#{delpass}),content= (#{content}) where id = (#{id})
     </update>
 
-    <insert id="insertCommnet" parameterType="com.simplify.sample.db.dto.commentVO">
+    <insert id="insertCommnet" parameterType="commentVO">
         insert into comment(user_id, board_id, content) value(#{user_id},#{board_id},#{content})
     </insert>
 
      <!--    commentVO에 user_id, board_id 생성자를 만들었을 때 오류가 나는 이유?-->
-    <select id="findCommentsByBoardId" parameterType="com.simplify.sample.db.dto.contentVO" resultType="com.simplify.sample.db.dto.commentVO">
+    <select id="findCommentsByBoardId" parameterType="contentVO" resultType="commentVO">
         select user_id, content from comment where board_id = (#{id})
     </select>
 
@@ -51,7 +51,7 @@
         DELETE from board WHERE id = (#{id})
     </delete>
 
-    <select id="searchContentByContentWord" parameterType="String" resultType="com.simplify.sample.db.dto.contentVO">
+    <select id="searchContentByContentWord" parameterType="String" resultType="contentVO">
         select * from board where content like CONCAT('%',#{word},'%') or title like CONCAT('%',#{word},'%')
     </select>
 
@@ -65,7 +65,8 @@
 <!--        SELECT user_id FROM board  WHERE id = (#{id})-->
 <!--    </select>-->
 
-    <select id="compareWriterAndSessionUser" resultType="com.simplify.sample.db.dto.contentVO" parameterType="int">
+    <select id="compareWriterAndSessionUser" resultType="contentVO" parameterType="int">
         SELECT user_id, delpass FROM board  WHERE id = (#{id})
     </select>
+
 </mapper>

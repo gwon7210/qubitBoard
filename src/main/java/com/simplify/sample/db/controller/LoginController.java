@@ -4,6 +4,10 @@ import com.simplify.sample.db.dto.memberVO;
 import com.simplify.sample.db.service.TestService;
 import com.simplify.sample.db.validator.MemberValidator;
 import lombok.AllArgsConstructor;
+
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,18 +19,25 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.lang.reflect.Member;
-import java.util.logging.Level;
 
 //Restcontroller로 하면 화면이 글자로 나오는데 그 이유 알기
 @Controller
 @AllArgsConstructor
-public class LoginController {
+@Slf4j
+ public class LoginController {
 
     @Autowired
     TestService testService;
 
     @GetMapping("/")
     public String firstview() {
+
+        log.info("사용자가 입장했습니다. !");
+        log.debug("사용자가 입장했습니다. !");
+        log.warn("사용자가 입장했습니다. !");
+        log.error("사용자가 입장했습니다. !");
+        log.trace("사용자가 입장했습니다. !");
+
         return "login/logining.html";
     }
 
