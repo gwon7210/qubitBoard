@@ -23,7 +23,7 @@ public class BoardController {
     @Autowired
     TestService testService;
 
-    //???이런것도 예외처리 해야하나요 ?
+    //???이런것도 예외처리 해야하나요 ? noah revert reset test
     @GetMapping("/gotoContent")
     public String gotocontent()throws Exception{
 
