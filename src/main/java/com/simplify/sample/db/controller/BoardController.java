@@ -19,7 +19,7 @@ import java.util.List;
 @Controller
 @Slf4j
 public class BoardController {
-
+//a
     @Autowired
     TestService testService;
 
